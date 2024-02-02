@@ -1,5 +1,9 @@
 pipeline {
-	agent any	
+	agent any
+	tools {
+        	jdk 'myjava'
+        	maven 'mymaven'
+    	}
 	
 	stages{
 		stage('Checkout Code'){

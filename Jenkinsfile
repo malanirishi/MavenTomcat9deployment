@@ -22,6 +22,11 @@ pipeline {
 			steps {
 				sh 'mvn checkstyle:checkstyle pmd:pmd findbugs:findbugs'
 			}
+			post {
+				always {
+					recordIssues(tools: [checkStyle(), pmdParser(), findBugs(useRankAsPriority: true)])
+				}
+			}
 		}
 
 		stage('Unit Test') { 

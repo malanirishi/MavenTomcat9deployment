@@ -12,13 +12,13 @@ pipeline {
 			}
 		}
 	
-		stage('Build'){
+		stage('Compile'){
 			steps{
 				sh "mvn clean install -Dmaven.test.skip=true"
 			}
 		}
 
-		stage('Test') { 
+		stage('Unit Test') { 
             		steps {
                 		sh 'mvn test' 
             		}
@@ -28,6 +28,12 @@ pipeline {
                 		}
             		}
         	}
+
+		stage('Code Review') {
+			steps {
+				sh 'mvn pmd:pmd'
+			}
+		}
 		
 		stage('Archive Artifact'){
 			steps{
@@ -50,7 +56,7 @@ pipeline {
 				emailext(
 					subject: "Job Completed",
 					body: "Jenkins pipeline job for maven build job completed",
-					to: "devopseng129@gmail.com"
+					to: "malanirishi@gmail.com"
 				)
 			}
 		}

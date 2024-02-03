@@ -15,7 +15,6 @@ pipeline {
 		stage('Compile'){
 			steps{
 				sh 'mvn compile'
-				//sh "mvn clean install -Dmaven.test.skip=true"
 			}
 		}
 
@@ -41,14 +40,8 @@ pipeline {
 				sh 'mvn clean package'
 			}
 		}
-		
-		stage('Archive Artifact'){
-			steps{
-				archiveArtifacts artifacts:'target/*.war'
-			}
-		}
 	
-		stage('deployment'){
+		stage('Deploy'){
 			steps{
 				deploy adapters: [tomcat9(url: 'http://localhost:8081/', 
                               		credentialsId: 'tomcatuser')], 
@@ -56,16 +49,6 @@ pipeline {
                      			contextPath: 'app'
 			}
 		
-		}
-	
-		stage('Notification'){
-			steps{
-				emailext(
-					subject: "Job Completed",
-					body: "Jenkins pipeline job for maven build job completed",
-					to: "malanirishi@gmail.com"
-				)
-			}
 		}
 	}
 }

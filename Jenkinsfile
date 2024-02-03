@@ -20,7 +20,7 @@ pipeline {
 
 		stage('Code Review') {
 			steps {
-				sh 'mvn pmd:pmd'
+				sh 'mvn checkstyle:checkstyle pmd:pmd findbugs:findbugs'
 			}
 		}
 

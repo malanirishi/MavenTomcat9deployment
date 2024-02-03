@@ -6,14 +6,14 @@ pipeline {
     	}
 	
 	stages{
-		stage('Checkout Code'){
-			steps{
+		stage('Checkout Code') {
+			steps {
 				checkout scm
 			}
 		}
 	
-		stage('Compile'){
-			steps{
+		stage('Compile') {
+			steps {
 				sh 'mvn compile'
 			}
 		}
@@ -41,8 +41,8 @@ pipeline {
 			}
 		}
 	
-		stage('Deploy'){
-			steps{
+		stage('Deploy') {
+			steps {
 				deploy adapters: [tomcat9(url: 'http://localhost:8081/', 
                               		credentialsId: 'tomcatuser')], 
                      			war: 'target/*.war',

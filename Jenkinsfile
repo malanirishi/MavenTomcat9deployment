@@ -18,6 +18,12 @@ pipeline {
 			}
 		}
 
+		stage('Code Review') {
+			steps {
+				sh 'mvn pmd:pmd'
+			}
+		}
+
 		stage('Unit Test') { 
             		steps {
                 		sh 'mvn test' 
@@ -29,9 +35,9 @@ pipeline {
             		}
         	}
 
-		stage('Code Review') {
+		stage('Package') {
 			steps {
-				sh 'mvn pmd:pmd'
+				sh 'mvn clean package'
 			}
 		}
 		
